@@ -1,7 +1,6 @@
-import {products} from "../backend/products.js";
+import {products} from "../data/products.js";
 
 products.map((elem, index)=>{
-    console.log(elem);
     return document.querySelector(".main .products-grid").innerHTML += `
         <div class="product-container">
           <div class="product-image-container">
@@ -42,7 +41,29 @@ products.map((elem, index)=>{
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">Add to Cart</button>
+          <button class="add-to-cart-button button-primary js-add-to-cart" data-product-name="${elem.name}">Add to Cart</button>
         </div>
     `
+})
+
+document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
+  button.addEventListener('click', ()=>{
+    const productName = button.dataset.productName;
+    let matchingItem;
+    cart.forEach((item)=>{
+      if(productName === item.productName){
+        matchingItem = item;
+      }
+    });
+
+    if(matchingItem){
+      matchingItem.quantity+=1;
+    }else{
+      cart.push({
+        productName: productName, 
+        quantity: 1
+      })
+    }
+    console.log(cart);
+  })
 })
