@@ -1,4 +1,5 @@
 import {products} from "../data/products.js";
+import {cart} from "../data/cart.js";
 
 products.map((elem, index)=>{
     return document.querySelector(".main .products-grid").innerHTML += `
