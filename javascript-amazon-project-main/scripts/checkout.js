@@ -10,7 +10,7 @@ cart.map((elem) => {
     }
   });
   return (document.querySelector(".order-summary").innerHTML += `
-    <div class="cart-item-container">
+    <div class="cart-item-container js-cart-item-container-${matchingProducts.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -24,16 +24,20 @@ cart.map((elem) => {
                   ${matchingProducts.name}
                 </div>
                 <div class="product-price">
-                  $${(matchingProducts.priceCents/100).toFixed(2)}
+                  $${(matchingProducts.priceCents / 100).toFixed(2)}
                 </div>
                 <div class="product-quantity">
                   <span>
-                    Quantity: <span class="quantity-label">${elem.quantity}</span>
+                    Quantity: <span class="quantity-label">${
+                      elem.quantity
+                    }</span>
                   </span>
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProducts.id}">
+                  <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${
+                    matchingProducts.id
+                  }">
                     Delete
                   </span>
                 </div>
@@ -88,11 +92,13 @@ cart.map((elem) => {
     `);
 });
 
-
-document.querySelectorAll('.js-delete-link').forEach((link)=>{
-    link.addEventListener('click', ()=>{
-        const productId = link.dataset.productId;
-        removeFromCart(productId);
-        console.log(cart);
-    })
+document.querySelectorAll(".js-delete-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const productId = link.dataset.productId;
+    removeFromCart(productId);
+    const container = document.querySelector(`.js-cart-item-container-${productId}`);
+    // container.style.display = "none";
+    container.remove();
+    console.log(container);
+  });
 });
