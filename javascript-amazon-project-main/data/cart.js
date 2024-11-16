@@ -50,3 +50,15 @@ export const removeFromCart = (productId) => {
   cart = newCart;
   saveToLocalStorage();
 };
+
+export const updateDeliveryOptions = (productId, deliveryOptionsId)=>{
+  let matchingItem;
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+
+  matchingItem.deliveryOptionsId = deliveryOptionsId;
+  saveToLocalStorage();
+}
