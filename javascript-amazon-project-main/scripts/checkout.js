@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 cart.map((elem) => {
@@ -9,7 +9,6 @@ cart.map((elem) => {
       matchingProducts = product;
     }
   });
-  console.log(matchingProducts);
   return (document.querySelector(".order-summary").innerHTML += `
     <div class="cart-item-container">
             <div class="delivery-date">
@@ -34,7 +33,7 @@ cart.map((elem) => {
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary">
+                  <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProducts.id}">
                     Delete
                   </span>
                 </div>
@@ -87,4 +86,13 @@ cart.map((elem) => {
             </div>
           </div>
     `);
+});
+
+
+document.querySelectorAll('.js-delete-link').forEach((link)=>{
+    link.addEventListener('click', ()=>{
+        const productId = link.dataset.productId;
+        removeFromCart(productId);
+        console.log(cart);
+    })
 });
