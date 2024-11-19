@@ -11,11 +11,8 @@ export function renderPaymentSummary(){
         shippingPriceCents += deliveryOption.priceCents;
     });
     const totalBeforeTax = productPriceCents + shippingPriceCents;
-    console.log(totalBeforeTax);
     const taxCents = totalBeforeTax * 0.1;
-    console.log(taxCents);
     const totalCents = totalBeforeTax + taxCents;
-    console.log(totalCents);
 
     document.querySelector('.js-payment-summary').innerHTML = `
     <div class="payment-summary-title">Order Summary</div>
