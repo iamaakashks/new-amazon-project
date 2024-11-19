@@ -1,16 +1,22 @@
-import { cart, removeFromCart, updateDeliveryOptions } from "../../data/cart.js";
+import {
+  cart,
+  removeFromCart,
+  updateDeliveryOptions,
+  increaseCartQuantity,
+  decreaseCartQuantity
+} from "../../data/cart.js";
 import { products, getProduct } from "../../data/products.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-import { deliveryOptions, getDeliveryOptions } from "../../data/deliveryOptions.js";
+import {
+  deliveryOptions,
+  getDeliveryOptions,
+} from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
-
-console.log(cart);
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
   cart.forEach((elem) => {
     const productId = elem.productId;
     const matchingProducts = getProduct(productId);
-    
 
     const deliveryOptionId = elem.deliveryOptionsId;
     const deliveryOption = getDeliveryOptions(deliveryOptionId);
@@ -41,8 +47,15 @@ export function renderOrderSummary() {
               <span>
                 Quantity: <span class="quantity-label">${elem.quantity}</span>
               </span>
-              <span class="update-quantity-link link-primary">
-                Update
+              <span class="update-quantity-link js-update-quantity-link-add link-primary" data-product-id="${
+                matchingProducts.id
+              }">
+                Add
+              </span>
+              <span class="update-quantity-link js-update-quantity-link-minus link-primary" data-product-id="${
+                matchingProducts.id
+              }">
+                Remove
               </span>
               <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${
                 matchingProducts.id
@@ -109,6 +122,23 @@ export function renderOrderSummary() {
       renderPaymentSummary();
     });
   });
+
+  document.querySelectorAll(".js-update-quantity-link-add").forEach((link)=>{
+    link.addEventListener('click', ()=>{
+      const productId = link.dataset.productId;
+      increaseCartQuantity(productId);
+      renderOrderSummary();
+      renderPaymentSummary();
+    })
+  })
+  document.querySelectorAll(".js-update-quantity-link-minus").forEach((link)=>{
+    link.addEventListener('click', ()=>{
+      const productId = link.dataset.productId;
+      decreaseCartQuantity(productId);
+      renderOrderSummary();
+      renderPaymentSummary();
+    })
+  })
 
   document.querySelectorAll(".js-delivery-option").forEach((element) => {
     element.addEventListener("click", () => {

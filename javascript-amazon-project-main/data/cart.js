@@ -51,6 +51,27 @@ export const removeFromCart = (productId) => {
   saveToLocalStorage();
 };
 
+export const increaseCartQuantity = (productId)=>{
+  cart.forEach(cartItem=>{
+    if(cartItem.productId == productId){
+      cartItem.quantity += 1;
+    }
+  })
+  saveToLocalStorage();
+}
+export const decreaseCartQuantity = (productId)=>{
+  cart.forEach(cartItem=>{
+    if(cartItem.productId == productId){
+      if(cartItem.quantity != 1){
+        cartItem.quantity -= 1;
+      }else{
+        removeFromCart(productId);
+      }
+    }
+  })
+  saveToLocalStorage();
+}
+
 export const updateDeliveryOptions = (productId, deliveryOptionsId)=>{
   let matchingItem;
   cart.forEach((cartItem) => {
