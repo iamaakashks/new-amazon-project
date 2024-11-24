@@ -1,4 +1,3 @@
-
 export let cart = JSON.parse(localStorage.getItem("cart"));
 
 if (!cart) {
@@ -39,7 +38,6 @@ export const addToCart = (productId) => {
   }
   saveToLocalStorage();
 };
-
 export const removeFromCart = (productId) => {
   let newCart = [];
   cart.forEach((cartItem) => {
@@ -51,28 +49,28 @@ export const removeFromCart = (productId) => {
   saveToLocalStorage();
 };
 
-export const increaseCartQuantity = (productId)=>{
-  cart.forEach(cartItem=>{
-    if(cartItem.productId == productId){
+export const increaseCartQuantity = (productId) => {
+  cart.forEach((cartItem) => {
+    if (cartItem.productId == productId) {
       cartItem.quantity += 1;
     }
-  })
+  });
   saveToLocalStorage();
-}
-export const decreaseCartQuantity = (productId)=>{
-  cart.forEach(cartItem=>{
-    if(cartItem.productId == productId){
-      if(cartItem.quantity != 1){
+};
+export const decreaseCartQuantity = (productId) => {
+  cart.forEach((cartItem) => {
+    if (cartItem.productId == productId) {
+      if (cartItem.quantity != 1) {
         cartItem.quantity -= 1;
-      }else{
+      } else {
         removeFromCart(productId);
       }
     }
-  })
+  });
   saveToLocalStorage();
-}
+};
 
-export const updateDeliveryOptions = (productId, deliveryOptionsId)=>{
+export const updateDeliveryOptions = (productId, deliveryOptionsId) => {
   let matchingItem;
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
@@ -82,4 +80,4 @@ export const updateDeliveryOptions = (productId, deliveryOptionsId)=>{
 
   matchingItem.deliveryOptionsId = deliveryOptionsId;
   saveToLocalStorage();
-}
+};

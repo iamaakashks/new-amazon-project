@@ -15,6 +15,7 @@ export function renderPaymentSummary(){
     const totalCents = totalBeforeTax + taxCents;
     let totalNumberOfItem = 0;
     cart.forEach(item => totalNumberOfItem += item.quantity);
+    document.querySelector(".checkout-header-middle-section").innerHTML = `Checkout (${totalNumberOfItem} items)`;
     document.querySelector('.js-payment-summary').innerHTML = `
     <div class="payment-summary-title">Order Summary</div>
 

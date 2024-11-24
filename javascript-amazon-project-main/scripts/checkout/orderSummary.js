@@ -3,8 +3,9 @@ import {
   removeFromCart,
   updateDeliveryOptions,
   increaseCartQuantity,
-  decreaseCartQuantity
+  decreaseCartQuantity,
 } from "../../data/cart.js";
+console.log(cart);
 import { products, getProduct } from "../../data/products.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import {
@@ -123,22 +124,24 @@ export function renderOrderSummary() {
     });
   });
 
-  document.querySelectorAll(".js-update-quantity-link-add").forEach((link)=>{
-    link.addEventListener('click', ()=>{
+  document.querySelectorAll(".js-update-quantity-link-add").forEach((link) => {
+    link.addEventListener("click", () => {
       const productId = link.dataset.productId;
       increaseCartQuantity(productId);
       renderOrderSummary();
       renderPaymentSummary();
-    })
-  })
-  document.querySelectorAll(".js-update-quantity-link-minus").forEach((link)=>{
-    link.addEventListener('click', ()=>{
-      const productId = link.dataset.productId;
-      decreaseCartQuantity(productId);
-      renderOrderSummary();
-      renderPaymentSummary();
-    })
-  })
+    });
+  });
+  document
+    .querySelectorAll(".js-update-quantity-link-minus")
+    .forEach((link) => {
+      link.addEventListener("click", () => {
+        const productId = link.dataset.productId;
+        decreaseCartQuantity(productId);
+        renderOrderSummary();
+        renderPaymentSummary();
+      });
+    });
 
   document.querySelectorAll(".js-delivery-option").forEach((element) => {
     element.addEventListener("click", () => {

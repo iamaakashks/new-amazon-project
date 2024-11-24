@@ -37,7 +37,7 @@ products.map((elem, index)=>{
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-to-cart">
             <img src="images/icons/checkmark.png" />
             Added
           </div>
@@ -48,9 +48,9 @@ products.map((elem, index)=>{
 })
 const updateCartQuantity = ()=>{
   let cartQuantity = 0;
-  cart.forEach((item)=>{
+  cart.forEach((item) => {
     cartQuantity += item.quantity;
-  })
+  });
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 }
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
